@@ -1,65 +1,88 @@
-/**
- * Below are the colors that are used in the app. The colors are defined in the light and dark mode.
- * There are many other ways to style your app. For example, [Nativewind](https://www.nativewind.dev/), [Tamagui](https://tamagui.dev/), [unistyles](https://reactnativeunistyles.vercel.app), etc.
- */
-
-import '@/global.css';
-
-import { Platform } from 'react-native';
+import { Platform } from "react-native";
 
 export const Colors = {
-  light: {
-    text: '#000000',
-    background: '#ffffff',
-    backgroundElement: '#F0F0F3',
-    backgroundSelected: '#E0E1E6',
-    textSecondary: '#60646C',
-  },
-  dark: {
-    text: '#ffffff',
-    background: '#000000',
-    backgroundElement: '#212225',
-    backgroundSelected: '#2E3135',
-    textSecondary: '#B0B4BA',
-  },
-} as const;
+  // We no longer use flat backgrounds, but we'll set a base fallback
+  background: "#FDF6FF",
 
-export type ThemeColor = keyof typeof Colors.light & keyof typeof Colors.dark;
+  // Accents
+  primary: "#8B7CF6", // Violet
+  success: "#34D399", // Teal
+  warning: "#FBBF24", // Amber
+  error: "#F87171", // Coral
+  info: "#60A5FA", // Blue
+  highlight: "#F472B6", // Pink
 
-export const Fonts = Platform.select({
-  ios: {
-    /** iOS `UIFontDescriptorSystemDesignDefault` */
-    sans: 'system-ui',
-    /** iOS `UIFontDescriptorSystemDesignSerif` */
-    serif: 'ui-serif',
-    /** iOS `UIFontDescriptorSystemDesignRounded` */
-    rounded: 'ui-rounded',
-    /** iOS `UIFontDescriptorSystemDesignMonospaced` */
-    mono: 'ui-monospace',
-  },
-  default: {
-    sans: 'normal',
-    serif: 'serif',
-    rounded: 'normal',
-    mono: 'monospace',
-  },
-  web: {
-    sans: 'var(--font-display)',
-    serif: 'var(--font-serif)',
-    rounded: 'var(--font-rounded)',
-    mono: 'var(--font-mono)',
-  },
-});
+  // Text
+  textPrimary: "#1A1A2E",
+  textSecondary: "#6B7280",
+  textMuted: "#9CA3AF",
+  textWhite: "#FFFFFF",
+
+  // Glass properties
+  glassBackground: "rgba(255, 255, 255, 0.72)",
+  glassBorder: "rgba(255, 255, 255, 0.9)",
+  // Surface tokens
+  surface: "#FFFFFF",
+  surfaceRaised: "#FBFBFF",
+  border: "#E6E6F0",
+};
+
+export const Gradients = {
+  home: ["#FDF6FF", "#EFF8FF", "#F0FFF4"] as const,
+  camera: ["#EFF8FF", "#FFFFFF", "#FFFFFF"] as const,
+  review: ["#FFF0EE", "#FDF6FF", "#FDFBF7"] as const, // Peach to cream
+  export: ["#F0FFF4", "#EFF8FF", "#FFFFFF"] as const, // Teal/Mint to white
+  success: ["#E6FFFA", "#F0FFF4", "#FFFFFF"] as const, // Joyful teal glow
+};
+
+export const Typography = {
+  display: "PlusJakartaSans_700Bold",
+  body: "Inter_400Regular, DMSans_400Regular",
+  mono: "JetBrainsMono_500Medium",
+  labels: "Inter_500Medium",
+};
 
 export const Spacing = {
-  half: 2,
-  one: 4,
-  two: 8,
+  half: 4,
+  one: 8,
+  two: 12,
   three: 16,
   four: 24,
   five: 32,
-  six: 64,
-} as const;
+  six: 48,
+  seven: 64,
+};
+
+export const Radius = {
+  sm: 12, // Icons
+  md: 14, // Inputs
+  lg: 20, // Cards
+  full: 999, // Pills, buttons
+};
+
+export const Shadows = {
+  glass: {
+    shadowColor: "#7878B4",
+    shadowOffset: { width: 0, height: 8 },
+    shadowOpacity: 0.1,
+    shadowRadius: 32,
+    elevation: 4, // Android fallback
+  },
+  button: {
+    shadowColor: "#6C63FF",
+    shadowOffset: { width: 0, height: 8 },
+    shadowOpacity: 0.25,
+    shadowRadius: 20,
+    elevation: 8,
+  },
+  tabBar: {
+    shadowColor: "#000000",
+    shadowOffset: { width: 0, height: -4 },
+    shadowOpacity: 0.06,
+    shadowRadius: 20,
+    elevation: 10,
+  },
+};
 
 export const BottomTabInset = Platform.select({ ios: 50, android: 80 }) ?? 0;
 export const MaxContentWidth = 800;

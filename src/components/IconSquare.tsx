@@ -1,5 +1,5 @@
-import { View, StyleSheet } from 'react-native';
-import { Radius } from '@/constants/theme';
+import { Radius } from "@/constants/theme";
+import { StyleSheet, View } from "react-native";
 
 interface IconSquareProps {
   icon: React.ReactNode;
@@ -9,16 +9,16 @@ interface IconSquareProps {
 
 export const IconSquare = ({ icon, color, size = 44 }: IconSquareProps) => {
   return (
-    <View 
+    <View
       style={[
-        styles.container, 
-        { 
-          width: size, 
-          height: size, 
-          backgroundColor: color, 
-          opacity: 0.15 
-        }
-      ]} 
+        styles.container,
+        {
+          width: size,
+          height: size,
+          backgroundColor: color,
+          opacity: 0.15,
+        },
+      ]}
     />
   );
 };
@@ -28,29 +28,24 @@ export const IconSquare = ({ icon, color, size = 44 }: IconSquareProps) => {
 export const IconContainer = ({ icon, color, size = 44 }: IconSquareProps) => {
   return (
     <View style={[styles.wrapper, { width: size, height: size }]}>
-      <View 
-        style={[
-          styles.bg, 
-          { backgroundColor: color }
-        ]} 
-      />
+      <View style={[styles.bg, { backgroundColor: color }]} />
       {icon}
     </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {
     borderRadius: Radius.sm,
   },
   wrapper: {
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
     borderRadius: Radius.sm,
-    overflow: 'hidden',
+    overflow: "hidden",
   },
   bg: {
-    ...StyleSheet.absoluteFillObject,
+    ...StyleSheet.absoluteFill,
     opacity: 0.15,
-  }
+  },
 });

@@ -1,34 +1,45 @@
-import { useState, useRef } from 'react';
-import { View, Text, StyleSheet, Dimensions, FlatList, TouchableOpacity, NativeSyntheticEvent, NativeScrollEvent } from 'react-native';
-import { useRouter } from 'expo-router';
-import { SafeAreaView } from 'react-native-safe-area-context';
-import { FileSpreadsheet, Scan, Download } from 'lucide-react-native';
-import { LinearGradient } from 'expo-linear-gradient';
-import { Colors, Gradients } from '@/constants/theme';
-import { Button } from '@/components/Button';
-import { IconContainer } from '@/components/IconSquare';
+import { Button } from "@/components/Button";
+import { IconContainer } from "@/components/IconSquare";
+import { Colors, Gradients } from "@/constants/theme";
+import { LinearGradient } from "expo-linear-gradient";
+import { useRouter } from "expo-router";
+import { Download, FileSpreadsheet, Scan } from "lucide-react-native";
+import { useRef, useState } from "react";
+import {
+  Dimensions,
+  FlatList,
+  NativeScrollEvent,
+  NativeSyntheticEvent,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 
-const { width } = Dimensions.get('window');
+const { width } = Dimensions.get("window");
 
 const SLIDES = [
   {
-    id: '1',
-    title: 'Snap. Extract. Export.',
-    description: 'Turn any receipt into a structured product list in seconds.',
+    id: "1",
+    title: "Snap. Extract. Export.",
+    description: "Turn any receipt into a structured product list in seconds.",
     icon: <Scan size={48} color={Colors.primary} strokeWidth={1.5} />,
     color: Colors.primary,
   },
   {
-    id: '2',
-    title: 'No manual entry. Ever.',
-    description: 'Our AI reads your receipt and pulls out every product automatically.',
+    id: "2",
+    title: "No manual entry. Ever.",
+    description:
+      "Our AI reads your receipt and pulls out every product automatically.",
     icon: <FileSpreadsheet size={48} color={Colors.info} strokeWidth={1.5} />,
     color: Colors.info,
   },
   {
-    id: '3',
-    title: 'Ready for your system.',
-    description: 'Export as CSV or Excel and import directly — no copy-pasting.',
+    id: "3",
+    title: "Ready for your system.",
+    description:
+      "Export as CSV or Excel and import directly — no copy-pasting.",
     icon: <Download size={48} color={Colors.success} strokeWidth={1.5} />,
     color: Colors.success,
   },
@@ -47,23 +58,30 @@ export default function OnboardingScreen() {
 
   const handleNext = () => {
     if (currentIndex < SLIDES.length - 1) {
-      flatListRef.current?.scrollToIndex({ index: currentIndex + 1, animated: true });
+      flatListRef.current?.scrollToIndex({
+        index: currentIndex + 1,
+        animated: true,
+      });
     } else {
-      router.replace('/(tabs)');
+      router.replace("/(tabs)");
     }
   };
 
   const handleSkip = () => {
-    router.replace('/(tabs)');
+    router.replace("/(tabs)");
   };
 
   return (
     <LinearGradient colors={Gradients.home} style={styles.container}>
       <SafeAreaView style={styles.safeArea}>
-        
         {/* Background Watermark */}
         <View style={styles.watermarkContainer}>
-          <Scan size={300} color={Colors.primary} strokeWidth={0.5} opacity={0.04} />
+          <Scan
+            size={300}
+            color={Colors.primary}
+            strokeWidth={0.5}
+            opacity={0.04}
+          />
         </View>
 
         {/* Top Header with Skip */}
@@ -100,10 +118,7 @@ export default function OnboardingScreen() {
             {SLIDES.map((_, index) => (
               <View
                 key={index}
-                style={[
-                  styles.dot,
-                  currentIndex === index && styles.dotActive,
-                ]}
+                style={[styles.dot, currentIndex === index && styles.dotActive]}
               />
             ))}
           </View>
@@ -127,25 +142,25 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   watermarkContainer: {
-    ...StyleSheet.absoluteFillObject,
-    justifyContent: 'center',
-    alignItems: 'center',
+    ...StyleSheet.absoluteFill,
+    justifyContent: "center",
+    alignItems: "center",
     zIndex: -1,
   },
   header: {
     paddingHorizontal: 24,
     paddingTop: 16,
-    alignItems: 'flex-end',
+    alignItems: "flex-end",
   },
   skipText: {
     color: Colors.textMuted,
-    fontFamily: 'Inter_500Medium',
+    fontFamily: "Inter_500Medium",
     fontSize: 14,
   },
   slide: {
     width,
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
     paddingHorizontal: 32,
     paddingBottom: 40,
   },
@@ -153,17 +168,17 @@ const styles = StyleSheet.create({
     marginBottom: 48,
   },
   title: {
-    fontFamily: 'PlusJakartaSans_700Bold',
+    fontFamily: "PlusJakartaSans_700Bold",
     fontSize: 32,
     color: Colors.textPrimary,
-    textAlign: 'center',
+    textAlign: "center",
     marginBottom: 16,
   },
   description: {
-    fontFamily: 'Inter_400Regular',
+    fontFamily: "Inter_400Regular",
     fontSize: 16,
     color: Colors.textSecondary,
-    textAlign: 'center',
+    textAlign: "center",
     lineHeight: 24,
   },
   footer: {
@@ -172,15 +187,15 @@ const styles = StyleSheet.create({
     paddingTop: 24,
   },
   dotsContainer: {
-    flexDirection: 'row',
-    justifyContent: 'center',
+    flexDirection: "row",
+    justifyContent: "center",
     marginBottom: 32,
   },
   dot: {
     width: 8,
     height: 8,
     borderRadius: 4,
-    backgroundColor: 'rgba(0,0,0,0.1)',
+    backgroundColor: "rgba(0,0,0,0.1)",
     marginHorizontal: 4,
   },
   dotActive: {

@@ -1,21 +1,28 @@
-import { useFonts } from 'expo-font';
-import { Stack } from 'expo-router';
-import * as SplashScreen from 'expo-splash-screen';
-import { useEffect, useState, useRef } from 'react';
-import { View, StyleSheet, StatusBar, Animated, Easing, Text } from 'react-native';
-import { Scan } from 'lucide-react-native';
-import { LinearGradient } from 'expo-linear-gradient';
+import { useFonts } from "expo-font";
+import { LinearGradient } from "expo-linear-gradient";
+import { Stack } from "expo-router";
+import * as SplashScreen from "expo-splash-screen";
+import { Scan } from "lucide-react-native";
+import { useEffect, useRef, useState } from "react";
+import {
+  Animated,
+  Easing,
+  StatusBar,
+  StyleSheet,
+  Text,
+  View,
+} from "react-native";
 
-import { 
+import { JetBrainsMono_500Medium } from "@expo-google-fonts/jetbrains-mono";
+import {
   PlusJakartaSans_400Regular,
   PlusJakartaSans_500Medium,
-  PlusJakartaSans_700Bold 
-} from '@expo-google-fonts/plus-jakarta-sans';
-import { JetBrainsMono_500Medium } from '@expo-google-fonts/jetbrains-mono';
+  PlusJakartaSans_700Bold,
+} from "@expo-google-fonts/plus-jakarta-sans";
 
-import { Colors, Gradients } from '@/constants/theme';
+import { Colors, Gradients } from "@/constants/theme";
 
-export { ErrorBoundary } from 'expo-router';
+export { ErrorBoundary } from "expo-router";
 
 // Prevent native splash screen from hiding immediately
 SplashScreen.preventAutoHideAsync();
@@ -56,7 +63,7 @@ function AnimatedSplashScreen({ onComplete }: { onComplete: () => void }) {
         toValue: 0,
         duration: 400,
         useNativeDriver: true,
-      })
+      }),
     ]).start(() => {
       onComplete();
     });
@@ -64,14 +71,25 @@ function AnimatedSplashScreen({ onComplete }: { onComplete: () => void }) {
 
   return (
     <Animated.View style={[styles.splashContainer, { opacity: fadeAnim }]}>
-      <LinearGradient colors={Gradients.splash} style={StyleSheet.absoluteFill} />
+      <LinearGradient
+        colors={Gradients.splash}
+        style={StyleSheet.absoluteFill}
+      />
       <View style={styles.splashContent}>
-        <Animated.View style={{ transform: [{ scale: scaleAnim }], opacity: logoOpacity, alignItems: 'center' }}>
+        <Animated.View
+          style={{
+            transform: [{ scale: scaleAnim }],
+            opacity: logoOpacity,
+            alignItems: "center",
+          }}
+        >
           <View style={styles.logoCircle}>
             <Scan size={48} color={Colors.primary} strokeWidth={1.5} />
           </View>
         </Animated.View>
-        <Animated.View style={{ opacity: textOpacity, marginTop: 24, alignItems: 'center' }}>
+        <Animated.View
+          style={{ opacity: textOpacity, marginTop: 24, alignItems: "center" }}
+        >
           <Text style={styles.splashTitle}>Restock</Text>
           <Text style={styles.splashSubtitle}>Smart Inventory</Text>
         </Animated.View>
@@ -99,21 +117,32 @@ export default function RootLayout() {
 
   return (
     <View style={styles.container}>
-      <StatusBar barStyle="dark-content" backgroundColor="transparent" translucent />
-      
+      <StatusBar
+        barStyle="dark-content"
+        backgroundColor="transparent"
+        translucent
+      />
+
       <Stack
         screenOptions={{
           headerShown: false,
           contentStyle: { backgroundColor: Colors.background },
-          animation: 'slide_from_right',
-        }}>
+          animation: "slide_from_right",
+        }}
+      >
         <Stack.Screen name="onboarding" />
-        <Stack.Screen name="(tabs)" options={{ animation: 'fade' }} />
-        <Stack.Screen name="camera" options={{ presentation: 'fullScreenModal', animation: 'fade' }} />
-        <Stack.Screen name="processing" options={{ animation: 'fade' }} />
+        <Stack.Screen name="(tabs)" options={{ animation: "fade" }} />
+        <Stack.Screen
+          name="camera"
+          options={{ presentation: "fullScreenModal", animation: "fade" }}
+        />
+        <Stack.Screen name="processing" options={{ animation: "fade" }} />
         <Stack.Screen name="review" />
-        <Stack.Screen name="export" options={{ presentation: 'transparentModal', animation: 'fade' }} />
-        <Stack.Screen name="success" options={{ animation: 'fade' }} />
+        <Stack.Screen
+          name="export"
+          options={{ presentation: "transparentModal", animation: "fade" }}
+        />
+        <Stack.Screen name="success" options={{ animation: "fade" }} />
       </Stack>
 
       {/* Render the Animated Splash Screen on top until it finishes */}
@@ -130,21 +159,21 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.background,
   },
   splashContainer: {
-    ...StyleSheet.absoluteFillObject,
+    ...StyleSheet.absoluteFill,
     zIndex: 999,
   },
   splashContent: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
   },
   logoCircle: {
     width: 96,
     height: 96,
     borderRadius: 48,
-    backgroundColor: '#FFFFFF',
-    justifyContent: 'center',
-    alignItems: 'center',
+    backgroundColor: "#FFFFFF",
+    justifyContent: "center",
+    alignItems: "center",
     shadowColor: Colors.primary,
     shadowOffset: { width: 0, height: 12 },
     shadowOpacity: 0.15,
@@ -152,16 +181,16 @@ const styles = StyleSheet.create({
     elevation: 8,
   },
   splashTitle: {
-    fontFamily: 'PlusJakartaSans_700Bold',
+    fontFamily: "PlusJakartaSans_700Bold",
     fontSize: 36,
     color: Colors.textPrimary,
     letterSpacing: -0.5,
   },
   splashSubtitle: {
-    fontFamily: 'PlusJakartaSans_500Medium',
+    fontFamily: "PlusJakartaSans_500Medium",
     fontSize: 16,
     color: Colors.primary,
     marginTop: 4,
     letterSpacing: 0.5,
-  }
+  },
 });

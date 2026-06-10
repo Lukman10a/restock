@@ -113,7 +113,7 @@ export default function ExportScreen() {
           <Switch
             value={saveToHistory}
             onValueChange={setSaveToHistory}
-            trackColor={{ false: Colors.surfaceRaised, true: Colors.primary }}
+            trackColor={{ false: Colors.glassBackground, true: Colors.primary }}
             thumbColor="#FFFFFF"
           />
         </View>
@@ -132,7 +132,7 @@ const styles = StyleSheet.create({
     backgroundColor: "rgba(0,0,0,0.6)",
   },
   bottomSheet: {
-    backgroundColor: Colors.surface,
+    backgroundColor: Colors.glassBackground,
     borderTopLeftRadius: 24,
     borderTopRightRadius: 24,
     padding: 24,
@@ -142,7 +142,7 @@ const styles = StyleSheet.create({
     width: 40,
     height: 4,
     borderRadius: 2,
-    backgroundColor: Colors.border,
+    backgroundColor: Colors.glassBorder,
     alignSelf: "center",
     marginBottom: 24,
   },
@@ -165,7 +165,7 @@ const styles = StyleSheet.create({
   },
   formatCard: {
     flex: 1,
-    backgroundColor: Colors.surfaceRaised,
+    backgroundColor: Colors.glassBackground,
     borderRadius: Radius.lg,
     padding: 16,
     borderWidth: 2,
@@ -213,11 +213,11 @@ const styles = StyleSheet.create({
     width: 56,
     height: 56,
     borderRadius: 16,
-    backgroundColor: Colors.surfaceRaised,
+    backgroundColor: Colors.glassBackground,
     justifyContent: "center",
     alignItems: "center",
     borderWidth: 1,
-    borderColor: Colors.border,
+    borderColor: Colors.glassBorder,
   },
   toggleRow: {
     flexDirection: "row",

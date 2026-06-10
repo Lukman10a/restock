@@ -1,26 +1,30 @@
-import type { ViewProps } from 'react-native';
-import { View, StyleSheet } from 'react-native';
-import { Colors } from '@/constants/theme';
+import { Colors } from "@/constants/theme";
+import type { ViewProps } from "react-native";
+import { StyleSheet, View } from "react-native";
 
 export type ThemedViewProps = ViewProps & {
-  type?: 'default' | 'backgroundElement' | 'backgroundSelected';
+  type?: "default" | "backgroundElement" | "backgroundSelected";
 };
 
-export function ThemedView({ type = 'default', style, ...props }: ThemedViewProps) {
+export function ThemedView({
+  type = "default",
+  style,
+  ...props
+}: ThemedViewProps) {
   return <View style={[styles.base, styles[type], style]} {...props} />;
 }
 
 const styles = StyleSheet.create({
   base: {
-    backgroundColor: 'transparent',
+    backgroundColor: "transparent",
   },
   default: {
-    backgroundColor: 'transparent',
+    backgroundColor: "transparent",
   },
   backgroundElement: {
-    backgroundColor: Colors.surfaceRaised,
+    backgroundColor: Colors.glassBackground,
   },
   backgroundSelected: {
-    backgroundColor: Colors.surface,
+    backgroundColor: Colors.background,
   },
 });

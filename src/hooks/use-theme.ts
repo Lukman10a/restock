@@ -1,5 +1,5 @@
-import { useColorScheme } from 'react-native';
-import { Colors } from '@/constants/theme';
+import { Colors } from "@/constants/theme";
+import { useColorScheme } from "react-native";
 
 export function useTheme() {
   const scheme = useColorScheme();
@@ -7,9 +7,9 @@ export function useTheme() {
   return {
     colorScheme: scheme,
     background: Colors.background,
-    surface: Colors.surface,
-    text: scheme === 'dark' ? Colors.textPrimary : Colors.textPrimary,
-    border: Colors.border,
+    surface: Colors.glassBackground,
+    text: scheme === "dark" ? Colors.textPrimary : Colors.textPrimary,
+    border: Colors.glassBorder,
     primary: Colors.primary,
   };
 }

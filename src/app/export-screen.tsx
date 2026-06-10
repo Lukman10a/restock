@@ -147,13 +147,13 @@ const styles = StyleSheet.create({
     marginBottom: 24,
   },
   title: {
-    fontFamily: "Inter_700Bold",
+    fontFamily: "PlusJakartaSans_700Bold",
     fontSize: 24,
     color: Colors.textPrimary,
     marginBottom: 4,
   },
   subtitle: {
-    fontFamily: "Inter_400Regular",
+    fontFamily: "PlusJakartaSans_400Regular",
     fontSize: 14,
     color: Colors.textMuted,
     marginBottom: 32,
@@ -185,13 +185,13 @@ const styles = StyleSheet.create({
     marginBottom: 16,
   },
   formatTitle: {
-    fontFamily: "Inter_700Bold",
+    fontFamily: "PlusJakartaSans_700Bold",
     fontSize: 16,
     color: Colors.textPrimary,
     marginBottom: 8,
   },
   formatDesc: {
-    fontFamily: "Inter_400Regular",
+    fontFamily: "PlusJakartaSans_400Regular",
     fontSize: 12,
     color: Colors.textMuted,
     lineHeight: 16,
@@ -200,7 +200,7 @@ const styles = StyleSheet.create({
     marginBottom: 32,
   },
   shareTitle: {
-    fontFamily: "Inter_500Medium",
+    fontFamily: "PlusJakartaSans_500Medium",
     fontSize: 14,
     color: Colors.textSecondary,
     marginBottom: 16,
@@ -225,7 +225,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   toggleText: {
-    fontFamily: "Inter_500Medium",
+    fontFamily: "PlusJakartaSans_500Medium",
     fontSize: 16,
     color: Colors.textPrimary,
   },

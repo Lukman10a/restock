@@ -319,7 +319,7 @@ const styles = StyleSheet.create({
     color: Colors.textPrimary,
   },
   editAllText: {
-    fontFamily: "Inter_500Medium",
+    fontFamily: "PlusJakartaSans_500Medium",
     color: Colors.primary,
     fontSize: 16,
   },
@@ -346,7 +346,7 @@ const styles = StyleSheet.create({
     marginBottom: 4,
   },
   summaryMeta: {
-    fontFamily: "Inter_400Regular",
+    fontFamily: "PlusJakartaSans_400Regular",
     fontSize: 13,
     color: Colors.textSecondary,
   },
@@ -365,7 +365,7 @@ const styles = StyleSheet.create({
     padding: 16,
   },
   warningText: {
-    fontFamily: "Inter_500Medium",
+    fontFamily: "PlusJakartaSans_500Medium",
     fontSize: 14,
     color: Colors.warning,
     marginLeft: 12,
@@ -462,7 +462,7 @@ const styles = StyleSheet.create({
     marginTop: 8,
   },
   deleteText: {
-    fontFamily: "Inter_500Medium",
+    fontFamily: "PlusJakartaSans_500Medium",
     color: Colors.error,
     fontSize: 16,
   },

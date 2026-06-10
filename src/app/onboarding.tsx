@@ -154,7 +154,7 @@ const styles = StyleSheet.create({
   },
   skipText: {
     color: Colors.textMuted,
-    fontFamily: "Inter_500Medium",
+    fontFamily: "PlusJakartaSans_500Medium",
     fontSize: 14,
   },
   slide: {
@@ -175,7 +175,7 @@ const styles = StyleSheet.create({
     marginBottom: 16,
   },
   description: {
-    fontFamily: "Inter_400Regular",
+    fontFamily: "PlusJakartaSans_400Regular",
     fontSize: 16,
     color: Colors.textSecondary,
     textAlign: "center",

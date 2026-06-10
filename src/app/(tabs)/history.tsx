@@ -154,7 +154,7 @@ const styles = StyleSheet.create({
     borderColor: Colors.primary,
   },
   filterText: {
-    fontFamily: 'Inter_500Medium',
+    fontFamily: 'PlusJakartaSans_500Medium',
     fontSize: 14,
     color: Colors.textSecondary,
   },
@@ -190,7 +190,7 @@ const styles = StyleSheet.create({
     marginBottom: 4,
   },
   dateText: {
-    fontFamily: 'Inter_400Regular',
+    fontFamily: 'PlusJakartaSans_400Regular',
     fontSize: 12,
     color: Colors.textMuted,
   },
@@ -214,6 +214,6 @@ const styles = StyleSheet.create({
   },
   deleteActionText: {
     color: '#FFFFFF',
-    fontFamily: 'Inter_500Medium',
+    fontFamily: 'PlusJakartaSans_500Medium',
   },
 });

@@ -310,7 +310,7 @@ const styles = StyleSheet.create({
     borderColor: Colors.glassBorder,
   },
   helperText: {
-    fontFamily: "Inter_500Medium",
+    fontFamily: "PlusJakartaSans_500Medium",
     fontSize: 13,
     color: Colors.textSecondary,
   },
@@ -343,7 +343,7 @@ const styles = StyleSheet.create({
     borderRadius: Radius.full,
   },
   tipText: {
-    fontFamily: "Inter_500Medium",
+    fontFamily: "PlusJakartaSans_500Medium",
     fontSize: 11,
     color: Colors.success,
   },
@@ -358,7 +358,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   sideButtonText: {
-    fontFamily: "Inter_500Medium",
+    fontFamily: "PlusJakartaSans_500Medium",
     fontSize: 12,
     color: Colors.textSecondary,
     marginTop: 8,
@@ -382,7 +382,7 @@ const styles = StyleSheet.create({
     borderRadius: 30,
   },
   permissionText: {
-    fontFamily: "Inter_400Regular",
+    fontFamily: "PlusJakartaSans_400Regular",
     fontSize: 16,
     color: Colors.textPrimary,
     textAlign: "center",
@@ -395,7 +395,7 @@ const styles = StyleSheet.create({
     borderRadius: Radius.full,
   },
   permissionButtonText: {
-    fontFamily: "Inter_500Medium",
+    fontFamily: "PlusJakartaSans_500Medium",
     color: "#FFFFFF",
   },
 });

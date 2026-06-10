@@ -78,7 +78,7 @@ const styles = StyleSheet.create({
     marginBottom: 16,
   },
   subtitle: {
-    fontFamily: 'Inter_400Regular',
+    fontFamily: 'PlusJakartaSans_400Regular',
     fontSize: 16,
     color: Colors.textSecondary,
     textAlign: 'center',

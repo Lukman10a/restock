@@ -133,7 +133,7 @@ const styles = StyleSheet.create({
     marginLeft: 16,
   },
   subtext: {
-    fontFamily: 'Inter_400Regular',
+    fontFamily: 'PlusJakartaSans_400Regular',
     fontSize: 13,
     color: Colors.textSecondary,
     marginBottom: 4,
@@ -180,7 +180,7 @@ const styles = StyleSheet.create({
     marginBottom: 4,
   },
   quickActionSub: {
-    fontFamily: 'Inter_400Regular',
+    fontFamily: 'PlusJakartaSans_400Regular',
     fontSize: 13,
     color: Colors.textSecondary,
   },
@@ -204,7 +204,7 @@ const styles = StyleSheet.create({
     color: Colors.textPrimary,
   },
   seeAllText: {
-    fontFamily: 'Inter_500Medium',
+    fontFamily: 'PlusJakartaSans_500Medium',
     fontSize: 14,
     color: Colors.textSecondary,
   },
@@ -235,7 +235,7 @@ const styles = StyleSheet.create({
     marginBottom: 4,
   },
   dateText: {
-    fontFamily: 'Inter_400Regular',
+    fontFamily: 'PlusJakartaSans_400Regular',
     fontSize: 12,
     color: Colors.textMuted,
   },
@@ -254,14 +254,14 @@ const styles = StyleSheet.create({
     paddingVertical: 64,
   },
   emptyText: {
-    fontFamily: 'Inter_400Regular',
+    fontFamily: 'PlusJakartaSans_400Regular',
     fontSize: 16,
     color: Colors.textMuted,
     marginTop: 16,
     marginBottom: 8,
   },
   emptyLink: {
-    fontFamily: 'Inter_500Medium',
+    fontFamily: 'PlusJakartaSans_500Medium',
     fontSize: 14,
     color: Colors.primary,
   },

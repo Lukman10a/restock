@@ -68,7 +68,7 @@ const styles = StyleSheet.create({
     marginRight: 4,
   },
   text: {
-    fontFamily: 'Inter_500Medium',
+    fontFamily: 'PlusJakartaSans_500Medium',
     fontSize: 12,
     color: Colors.textSecondary,
     letterSpacing: 0.2,

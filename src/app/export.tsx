@@ -156,7 +156,7 @@ const styles = StyleSheet.create({
     marginBottom: 4,
   },
   subtitle: {
-    fontFamily: "Inter_400Regular",
+    fontFamily: "PlusJakartaSans_400Regular",
     fontSize: 15,
     color: Colors.textSecondary,
     marginBottom: 32,
@@ -186,12 +186,12 @@ const styles = StyleSheet.create({
     marginBottom: 4,
   },
   formatSub: {
-    fontFamily: "Inter_400Regular",
+    fontFamily: "PlusJakartaSans_400Regular",
     fontSize: 12,
     color: Colors.textSecondary,
   },
   sectionLabel: {
-    fontFamily: "Inter_500Medium",
+    fontFamily: "PlusJakartaSans_500Medium",
     fontSize: 14,
     color: Colors.textSecondary,
     marginBottom: 16,

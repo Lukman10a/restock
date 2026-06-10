@@ -186,7 +186,7 @@ const styles = StyleSheet.create({
   settingLabel: {
     flex: 1,
     marginLeft: 16,
-    fontFamily: "Inter_500Medium",
+    fontFamily: "PlusJakartaSans_500Medium",
     fontSize: 16,
     color: Colors.textPrimary,
   },
@@ -195,7 +195,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   settingValue: {
-    fontFamily: "Inter_400Regular",
+    fontFamily: "PlusJakartaSans_400Regular",
     fontSize: 14,
     color: Colors.textSecondary,
     marginRight: 8,

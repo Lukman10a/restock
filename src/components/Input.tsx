@@ -54,7 +54,7 @@ const styles = StyleSheet.create({
     marginBottom: 16,
   },
   label: {
-    fontFamily: "Inter_500Medium",
+    fontFamily: "PlusJakartaSans_500Medium",
     fontSize: 11,
     textTransform: "uppercase",
     letterSpacing: 0.88,
@@ -84,7 +84,7 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingHorizontal: 16,
     color: Colors.textPrimary,
-    fontFamily: "Inter_400Regular",
+    fontFamily: "PlusJakartaSans_400Regular",
     fontSize: 16,
   },
   mono: {
@@ -92,7 +92,7 @@ const styles = StyleSheet.create({
   },
   errorText: {
     color: Colors.error,
-    fontFamily: "Inter_400Regular",
+    fontFamily: "PlusJakartaSans_400Regular",
     fontSize: 12,
     marginTop: 4,
   },

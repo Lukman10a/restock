@@ -130,7 +130,7 @@ const styles = StyleSheet.create({
     borderRadius: Radius.full,
   },
   statusMessage: {
-    fontFamily: 'Inter_500Medium',
+    fontFamily: 'PlusJakartaSans_500Medium',
     fontSize: 14,
     color: Colors.textSecondary,
     minHeight: 20,

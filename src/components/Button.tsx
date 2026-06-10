@@ -145,7 +145,7 @@ const styles = StyleSheet.create({
     opacity: 0.5,
   },
   textBase: {
-    fontFamily: 'Inter_500Medium',
+    fontFamily: 'PlusJakartaSans_500Medium',
     fontSize: 16,
   },
   textLg: {

@@ -12,6 +12,7 @@ import {
   Text,
   View,
 } from "react-native";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
 
 import { JetBrainsMono_500Medium } from "@expo-google-fonts/jetbrains-mono";
 import {
@@ -116,7 +117,7 @@ export default function RootLayout() {
   }
 
   return (
-    <View style={styles.container}>
+    <GestureHandlerRootView style={styles.container}>
       <StatusBar
         barStyle="dark-content"
         backgroundColor="transparent"
@@ -149,7 +150,7 @@ export default function RootLayout() {
       {!splashComplete && (
         <AnimatedSplashScreen onComplete={() => setSplashComplete(true)} />
       )}
-    </View>
+    </GestureHandlerRootView>
   );
 }
 

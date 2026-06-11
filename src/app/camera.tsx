@@ -1,8 +1,8 @@
 import { IconContainer } from "@/components/IconSquare";
 import { Colors, Gradients, Radius, Shadows } from "@/constants/theme";
+import { saveReceiptCapture } from "@/lib/receipt-session";
 import { BlurView } from "expo-blur";
 import { CameraView, useCameraPermissions } from "expo-camera";
-import { Image } from "expo-image";
 import * as ImagePicker from "expo-image-picker";
 import { LinearGradient } from "expo-linear-gradient";
 import { useRouter } from "expo-router";
@@ -29,7 +29,6 @@ export default function CameraScreen() {
   const [mediaPermission, requestMediaPermission] =
     ImagePicker.useMediaLibraryPermissions();
   const [flash, setFlash] = useState(false);
-  const [capturedImageUri, setCapturedImageUri] = useState<string | null>(null);
   const [isDarkCapture, setIsDarkCapture] = useState(false);
   const router = useRouter();
   const cameraRef = useRef<CameraView | null>(null);
@@ -58,21 +57,45 @@ export default function CameraScreen() {
     return typeof value === "number" ? value : null;
   };
 
-  const markCapture = (uri: string, exif?: Record<string, unknown>) => {
-    setCapturedImageUri(uri);
+  const markCapture = (
+    uri: string,
+    base64: string,
+    source: "camera" | "gallery",
+    exif?: Record<string, unknown>,
+  ) => {
     const brightnessValue = getBrightnessValue(exif);
     setIsDarkCapture(brightnessValue !== null ? brightnessValue < 0 : false);
+
+    saveReceiptCapture({
+      uri,
+      base64,
+      source,
+      createdAt: Date.now(),
+      isDarkCapture: brightnessValue !== null ? brightnessValue < 0 : false,
+    });
+  };
+
+  const handoffToReview = () => {
+    router.replace("/review");
   };
 
   const handleSnap = async () => {
     const photo = await cameraRef.current?.takePictureAsync({
       quality: 0.8,
+      base64: true,
       exif: true,
     });
 
-    if (!photo?.uri) return;
+    if (!photo?.uri || !photo.base64) return;
 
-    markCapture(photo.uri, photo.exif as Record<string, unknown> | undefined);
+    markCapture(
+      photo.uri,
+      photo.base64,
+      "camera",
+      photo.exif as Record<string, unknown> | undefined,
+    );
+
+    handoffToReview();
   };
 
   const handlePickFromGallery = async () => {
@@ -84,29 +107,22 @@ export default function CameraScreen() {
     const result = await ImagePicker.launchImageLibraryAsync({
       mediaTypes: ["images"],
       quality: 0.8,
+      base64: true,
       exif: true,
     });
 
-    if (result.canceled || !result.assets[0]?.uri) return;
+    if (result.canceled || !result.assets[0]?.uri || !result.assets[0].base64) {
+      return;
+    }
 
     markCapture(
       result.assets[0].uri,
+      result.assets[0].base64,
+      "gallery",
       result.assets[0].exif as Record<string, unknown> | undefined,
     );
-  };
 
-  const handleUsePhoto = () => {
-    if (!capturedImageUri) return;
-
-    router.replace({
-      pathname: "/processing",
-      params: { imageUri: capturedImageUri },
-    });
-  };
-
-  const handleRetake = () => {
-    setCapturedImageUri(null);
-    setIsDarkCapture(false);
+    handoffToReview();
   };
 
   if (!permission) {
@@ -153,45 +169,24 @@ export default function CameraScreen() {
       </SafeAreaView>
 
       <View style={styles.cameraWrapper}>
-        {capturedImageUri ? (
-          <View style={styles.previewContainer}>
-            <Image
-              source={{ uri: capturedImageUri }}
-              style={styles.previewImage}
-              contentFit="cover"
-              transition={180}
-            />
-            <View style={styles.previewOverlay}>
-              <Text style={styles.previewLabel}>Photo ready</Text>
-              <Text style={styles.previewHint}>
-                Tap Use Photo to review next.
-              </Text>
-            </View>
-          </View>
-        ) : (
-          <CameraView
-            ref={cameraRef}
-            style={StyleSheet.absoluteFill}
-            facing="back"
-            enableTorch={flash}
-          />
-        )}
+        <CameraView
+          ref={cameraRef}
+          style={StyleSheet.absoluteFill}
+          facing="back"
+          enableTorch={flash}
+        />
 
         {/* Center Guide inside Camera wrapper */}
         <View style={styles.centerGuide} pointerEvents="none">
           <Animated.View
             style={[
               styles.boundaryGuide,
-              { transform: [{ scale: capturedImageUri ? 1 : pulseAnim }] },
+              { transform: [{ scale: pulseAnim }] },
             ]}
           ></Animated.View>
 
           <BlurView intensity={30} tint="light" style={styles.helperPill}>
-            <Text style={styles.helperText}>
-              {capturedImageUri
-                ? "Review before sending"
-                : "Fit receipt within the frame"}
-            </Text>
+            <Text style={styles.helperText}>Fit receipt within the frame</Text>
           </BlurView>
 
           {isDarkCapture && (
@@ -234,67 +229,50 @@ export default function CameraScreen() {
             </View>
           </View>
 
-          {capturedImageUri ? (
-            <View style={styles.previewActionsRow}>
-              <TouchableOpacity
-                style={[styles.actionButton, styles.secondaryActionButton]}
-                onPress={handleRetake}
-              >
-                <Text style={styles.secondaryActionText}>Retake</Text>
-              </TouchableOpacity>
-              <TouchableOpacity
-                style={[styles.actionButton, styles.primaryActionButton]}
-                onPress={handleUsePhoto}
-              >
-                <Text style={styles.primaryActionText}>Use Photo</Text>
-              </TouchableOpacity>
-            </View>
-          ) : (
-            <View style={styles.controlsRow}>
-              <TouchableOpacity
-                style={styles.sideButton}
-                onPress={handlePickFromGallery}
-              >
-                <IconContainer
-                  icon={<ImageIcon size={24} color={Colors.info} />}
-                  color={Colors.info}
-                  size={48}
-                />
-                <Text style={styles.sideButtonText}>Gallery</Text>
-              </TouchableOpacity>
+          <View style={styles.controlsRow}>
+            <TouchableOpacity
+              style={styles.sideButton}
+              onPress={handlePickFromGallery}
+            >
+              <IconContainer
+                icon={<ImageIcon size={24} color={Colors.info} />}
+                color={Colors.info}
+                size={48}
+              />
+              <Text style={styles.sideButtonText}>Gallery</Text>
+            </TouchableOpacity>
 
-              <TouchableOpacity
-                style={styles.shutterButtonWrapper}
-                activeOpacity={0.8}
-                onPress={handleSnap}
-              >
-                <View style={styles.shutterButtonOuter}>
-                  <LinearGradient
-                    colors={["#8B7CF6", "#6C63FF"]}
-                    style={styles.shutterButtonInner}
-                  />
-                </View>
-              </TouchableOpacity>
-
-              <TouchableOpacity
-                style={styles.sideButton}
-                onPress={() => setFlash(!flash)}
-              >
-                <IconContainer
-                  icon={
-                    flash ? (
-                      <Zap size={24} color={Colors.warning} />
-                    ) : (
-                      <ZapOff size={24} color={Colors.warning} />
-                    )
-                  }
-                  color={Colors.warning}
-                  size={48}
+            <TouchableOpacity
+              style={styles.shutterButtonWrapper}
+              activeOpacity={0.8}
+              onPress={handleSnap}
+            >
+              <View style={styles.shutterButtonOuter}>
+                <LinearGradient
+                  colors={["#8B7CF6", "#6C63FF"]}
+                  style={styles.shutterButtonInner}
                 />
-                <Text style={styles.sideButtonText}>Flash</Text>
-              </TouchableOpacity>
-            </View>
-          )}
+              </View>
+            </TouchableOpacity>
+
+            <TouchableOpacity
+              style={styles.sideButton}
+              onPress={() => setFlash(!flash)}
+            >
+              <IconContainer
+                icon={
+                  flash ? (
+                    <Zap size={24} color={Colors.warning} />
+                  ) : (
+                    <ZapOff size={24} color={Colors.warning} />
+                  )
+                }
+                color={Colors.warning}
+                size={48}
+              />
+              <Text style={styles.sideButtonText}>Flash</Text>
+            </TouchableOpacity>
+          </View>
         </BlurView>
       </SafeAreaView>
     </LinearGradient>
@@ -380,31 +358,6 @@ const styles = StyleSheet.create({
     fontSize: 13,
     color: Colors.textSecondary,
   },
-  previewContainer: {
-    ...StyleSheet.absoluteFill,
-  },
-  previewImage: {
-    width: "100%",
-    height: "100%",
-  },
-  previewOverlay: {
-    ...StyleSheet.absoluteFill,
-    justifyContent: "flex-end",
-    alignItems: "center",
-    padding: 24,
-    backgroundColor: "rgba(15, 23, 42, 0.12)",
-  },
-  previewLabel: {
-    fontFamily: "PlusJakartaSans_700Bold",
-    fontSize: 22,
-    color: Colors.textWhite,
-    marginBottom: 8,
-  },
-  previewHint: {
-    fontFamily: "PlusJakartaSans_500Medium",
-    fontSize: 13,
-    color: Colors.textWhite,
-  },
   bottomArea: {
     paddingHorizontal: 16,
     paddingBottom: 16,
@@ -443,36 +396,6 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     alignItems: "center",
     paddingHorizontal: 16,
-  },
-  previewActionsRow: {
-    flexDirection: "row",
-    gap: 12,
-    paddingHorizontal: 16,
-  },
-  actionButton: {
-    flex: 1,
-    borderRadius: Radius.full,
-    paddingVertical: 14,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  secondaryActionButton: {
-    backgroundColor: "rgba(255, 255, 255, 0.2)",
-    borderWidth: 1,
-    borderColor: Colors.glassBorder,
-  },
-  primaryActionButton: {
-    backgroundColor: Colors.primary,
-  },
-  secondaryActionText: {
-    fontFamily: "PlusJakartaSans_700Bold",
-    fontSize: 14,
-    color: Colors.textPrimary,
-  },
-  primaryActionText: {
-    fontFamily: "PlusJakartaSans_700Bold",
-    fontSize: 14,
-    color: Colors.textWhite,
   },
   sideButton: {
     alignItems: "center",

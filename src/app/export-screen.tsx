@@ -1,5 +1,6 @@
 import { Button } from "@/components/Button";
 import { Colors, Radius } from "@/constants/theme";
+import { getReceiptSession } from "@/lib/receipt-session";
 import { useRouter } from "expo-router";
 import {
   FileJson,
@@ -20,10 +21,13 @@ import {
 
 export default function ExportScreen() {
   const router = useRouter();
+  const session = getReceiptSession();
   const [selectedFormat, setSelectedFormat] = useState<"csv" | "excel" | null>(
     null,
   );
   const [saveToHistory, setSaveToHistory] = useState(true);
+  const itemCount = session.extraction?.items.length ?? 14;
+  const merchantName = session.extraction?.merchant_name ?? "Products";
 
   const handleExport = () => {
     if (!selectedFormat) return;
@@ -44,8 +48,10 @@ export default function ExportScreen() {
       <View style={styles.bottomSheet}>
         <View style={styles.sheetHandle} />
 
-        <Text style={styles.title}>Export Products</Text>
-        <Text style={styles.subtitle}>14 products ready to export</Text>
+        <Text style={styles.title}>Export Receipt</Text>
+        <Text style={styles.subtitle}>
+          {itemCount} items ready to export from {merchantName}
+        </Text>
 
         <View style={styles.cardsRow}>
           {/* CSV Card */}

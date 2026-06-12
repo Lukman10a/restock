@@ -1,5 +1,5 @@
-import { NativeModules } from "react-native";
-import TextRecognition from "react-native-text-recognition";
+// import TextRecognition from "react-native-text-recognition";
+import TextRecognition from "@react-native-ml-kit/text-recognition";
 
 import type { ReceiptDraft, ReceiptLineItem } from "@/lib/receipt-session";
 
@@ -254,14 +254,17 @@ function buildNotes(lines: string[], items: ReceiptLineItem[]) {
 export async function extractReceiptData(
   imagePath: string,
 ): Promise<ReceiptDraft> {
-  if (!NativeModules.TextRecognition || !TextRecognition?.recognize) {
-    throw new Error(
-      "Local OCR is not available in Expo Go. Run a development build or prebuild the app so react-native-text-recognition can load.",
-    );
-  }
+  const result = await TextRecognition.recognize(imagePath);
 
-  const ocrLines = await TextRecognition.recognize(imagePath);
-  const lines = ocrLines.map((line) => normalizeLine(line)).filter(Boolean);
+  const lines =
+    result.blocks?.flatMap((block) =>
+      block.lines.map((line) => normalizeLine(line.text)),
+    ).filter(Boolean) ??
+    result.text
+      .split(/\r?\n/)
+      .map((line) => normalizeLine(line))
+      .filter(Boolean);
+
   const rawText = lines.join("\n");
   const merchantName = findMerchant(lines);
   const receiptDate = findDate(lines);
@@ -292,3 +295,4 @@ export async function extractReceiptData(
     items,
   };
 }
+
